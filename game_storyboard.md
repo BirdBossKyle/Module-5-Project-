@@ -1,5 +1,3 @@
-# Wasteland Run — Project One Storyboard
-
 ## Theme and Storyline
 **Theme:** Post-apocalyptic survival. After a disaster leaves the region without power and supplies, the player searches nearby ruins for seven supplies. The Raider Leader is hiding in the Command Bunker. Entering the bunker with all seven items wins the game; entering without all seven loses.
 
