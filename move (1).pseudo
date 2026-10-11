@@ -1,0 +1,74 @@
+# Wasteland Run — Move-Between-Rooms Pseudocode
+
+START game
+    LET current_room = "Survivor Shelter"
+    LET inventory = empty list
+    LET game_is_running = TRUE
+
+    WHILE game_is_running = TRUE
+        OUTPUT "Current room: " + current_room
+        OUTPUT "Inventory: " + inventory
+        OUTPUT "Commands: north, south, east, west, get item, quit"
+        GET command
+        LET command = lowercase(trim(command))
+
+        IF command = "quit" THEN
+            OUTPUT "You leave the wasteland. Game ended."
+            LET game_is_running = FALSE
+        ELSE IF command = "get item" THEN
+            CALL get_item(current_room, inventory)
+        ELSE IF command = "north" OR command = "south" OR command = "east" OR command = "west" THEN
+            LET next_room = current_room
+            IF current_room = "Survivor Shelter" AND command = "north" THEN
+                LET next_room = "Abandoned Store"
+            ELSE IF current_room = "Survivor Shelter" AND command = "east" THEN
+                LET next_room = "Clinic"
+            ELSE IF current_room = "Abandoned Store" AND command = "south" THEN
+                LET next_room = "Survivor Shelter"
+            ELSE IF current_room = "Abandoned Store" AND command = "east" THEN
+                LET next_room = "Radio Tower"
+            ELSE IF current_room = "Clinic" AND command = "west" THEN
+                LET next_room = "Survivor Shelter"
+            ELSE IF current_room = "Clinic" AND command = "east" THEN
+                LET next_room = "Gas Station"
+            ELSE IF current_room = "Radio Tower" AND command = "west" THEN
+                LET next_room = "Abandoned Store"
+            ELSE IF current_room = "Radio Tower" AND command = "east" THEN
+                LET next_room = "Ruined School"
+            ELSE IF current_room = "Gas Station" AND command = "west" THEN
+                LET next_room = "Clinic"
+            ELSE IF current_room = "Gas Station" AND command = "east" THEN
+                LET next_room = "Water Plant"
+            ELSE IF current_room = "Ruined School" AND command = "west" THEN
+                LET next_room = "Radio Tower"
+            ELSE IF current_room = "Ruined School" AND command = "east" THEN
+                LET next_room = "Highway Checkpoint"
+            ELSE IF current_room = "Water Plant" AND command = "west" THEN
+                LET next_room = "Gas Station"
+            ELSE IF current_room = "Water Plant" AND command = "east" THEN
+                LET next_room = "Command Bunker"
+            ELSE IF current_room = "Highway Checkpoint" AND command = "west" THEN
+                LET next_room = "Ruined School"
+            ELSE IF current_room = "Command Bunker" AND command = "west" THEN
+                LET next_room = "Water Plant"
+            END IF
+
+            IF next_room = current_room THEN
+                OUTPUT "You cannot go that way from this room."
+            ELSE
+                LET current_room = next_room
+                OUTPUT "You moved to " + current_room
+                IF current_room = "Command Bunker" THEN
+                    IF inventory contains all seven required items THEN
+                        OUTPUT "You collected every supply and defeated the Raider Leader. You win!"
+                    ELSE
+                        OUTPUT "The Raider Leader catches you before you collected every supply. You lose."
+                    END IF
+                    LET game_is_running = FALSE
+                END IF
+            END IF
+        ELSE
+            OUTPUT "Invalid command. Enter north, south, east, west, get item, or quit."
+        END IF
+    END WHILE
+END game

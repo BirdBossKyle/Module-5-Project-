@@ -1,0 +1,26 @@
+# Wasteland Run — Get-Item Pseudocode
+
+PROCEDURE get_item(current_room, inventory)
+    LET room_item = item currently assigned to current_room
+    IF current_room = "Survivor Shelter" OR current_room = "Command Bunker" THEN
+        OUTPUT "There is no item to collect in this room."
+    ELSE IF room_item = NONE THEN
+        OUTPUT "There is no uncollected item in this room."
+    ELSE
+        OUTPUT "This room has: " + room_item
+        OUTPUT "Enter the item name to collect it, or enter 'back':"
+        GET item_command
+        LET item_command = lowercase(trim(item_command))
+        IF item_command = lowercase(room_item) THEN
+            ADD room_item to inventory
+            SET item assigned to current_room = NONE
+            OUTPUT "You collected " + room_item + "."
+            OUTPUT "You have collected " + number of items in inventory + " of 7 items."
+        ELSE IF item_command = "back" THEN
+            OUTPUT "You did not collect an item."
+        ELSE
+            OUTPUT "That item is not in this room. Nothing was added to your inventory."
+        END IF
+    END IF
+    RETURN to the main game loop in move.pseudo
+END PROCEDURE
